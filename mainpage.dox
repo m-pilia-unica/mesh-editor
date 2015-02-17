@@ -1,0 +1,79 @@
+/*!
+ * \mainpage
+ *
+ * \section design Overall design
+ *
+ * \subsection flow Execution flow
+ * \image html flowchart.png 
+ * \image latex flowchart.png "Application execution flow" width=10cm
+ *
+ * The control flow is handled inside the main subroutine. The application is 
+ * designed with a main do-while loop, each cicle of wich consists into:
+ * 1. get a filename;
+ * 2. open the file;
+ * 3. parse model data from file;
+ * 4. do some action (with at least one coloration);
+ * 5. get a output filename;
+ * 6. save the modified model in the new file.
+ * 
+ * In order to provide the possibility of doing more than one
+ * action (e.g. coloration and rotation or info showing) the main menu 
+ * is shown inside a nested do-while loop, and for each of its cycles it
+ * asks the user for an action, complete the request and then iterates, until
+ * the user chose to save the model or exit discarding changes.
+ *
+ * 
+ * \subsection modules Modularization
+ * 
+ * The program was structured dividing the back-end code (which actually 
+ * implements algorithms and functionalities, and it is potentially reusable) 
+ * from front-end code implementing the program interace and handling the 
+ * interation with the user.
+ *
+ * Front-end subroutines:
+ * - get_input_filename(char*);
+ * - get_output_filename(char*);
+ * - main_menu(Model3D);
+ * - ask_exit(void);
+ * - show_info(Model3D);
+ * - check_component(int);
+ * - ask_color(void);
+ * - ask_point(void);
+ * - ask_vector(void);
+ * - ask_angle(void);
+ * - ask_direction(void);
+ * - color_model(Model3D, Action);
+ * - rotate_model(Model3D);
+ * - confirm(Action).
+ *
+ * Back-end subroutines:
+ * - all backend.h subroutines 
+ *
+ *
+ * \section notes Technical notes
+ * 
+ * The application may be compiled with gcc launching the following command 
+ * in the project root directory
+ * ~~~~{.sh}
+ * gcc -o ./bin/main main.c frontend.c backend.c -lm 
+ * ~~~~
+ * or similar command for other compilers. When compiled with the `__DEBUG__` 
+ * macro defined (e.g. through the gcc's -D parameter) the application 
+ * provides extra debug output.
+ * In Unix-like environments the makefile may be used to build all,
+ * with the command:
+ * ~~~~{.sh}
+ * make
+ * ~~~~
+ * 
+ * This documentation may be generated launching on the project root directory
+ * ~~~~{.sh}
+ * doxygen Doxifile
+ * ~~~~
+ * 
+ * or with the makefile
+ * ~~~~{.sh}
+ * make doc
+ * ~~~~
+ * 
+ */
